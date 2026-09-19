@@ -7,9 +7,19 @@ versionado sigue [Versionado Semántico](https://semver.org/lang/es/).
 
 ## [No publicado]
 
-### Por hacer
+### Corregido
 
-- Ampliación de la cobertura de pruebas del dominio por encima del 90 %.
+- **El paso «Pruebas con cobertura» de la integración continua fallaba.**
+  `src/lib/almacen.ts` y `src/lib/exportar.ts` no tenían pruebas y quedaban en
+  0 %, lo que arrastraba la cobertura global por debajo de los umbrales
+  declarados en `vite.config.ts` y hacía fallar `npm run test:coverage` en cada
+  ejecución, aunque `vitest run` a secas pasara.
+
+### Agregado
+
+- Cobertura de pruebas de `src/lib`: validación por esquema y versión del
+  almacenamiento, descarte del contenido corrupto, aislamiento de claves entre
+  aplicaciones, y escape CSV conforme al RFC 4180 en la exportación.
 
 ---
 
