@@ -9,6 +9,13 @@ versionado sigue [Versionado Semántico](https://semver.org/lang/es/).
 
 ### Corregido
 
+- **Node 20 no podía ejecutar la suite de pruebas.** La matriz de CI incluía
+  Node 20, pero `jsdom 30` depende de `undici` y este de
+  `worker_threads.markAsUncloneable`, disponible solo desde Node 22.10. En
+  Node 20 ningún archivo de pruebas llegaba a arrancar y el paso «Pruebas con
+  cobertura» fallaba. Se retira Node 20 de la matriz y se sube el mínimo
+  declarado en `engines` a `>=22.10.0`, que es la versión que el entorno de
+  pruebas exige de verdad; `.nvmrc` ya fijaba la 22.
 - **El paso «Pruebas con cobertura» de la integración continua fallaba.**
   `src/lib/almacen.ts` y `src/lib/exportar.ts` no tenían pruebas y quedaban en
   0 %, lo que arrastraba la cobertura global por debajo de los umbrales
